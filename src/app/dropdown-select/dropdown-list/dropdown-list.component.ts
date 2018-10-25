@@ -15,11 +15,11 @@ export class DropdownListComponent implements OnInit {
   public currentSelects$ : Observable<any> = this._currentSelects.asObservable();
 
 
-  public itemsSelected : any ={};
-  public mapSelected : Array<any> =[];
+  public itemsSelected  : any ={};
+  public mapSelected    : Array<any> =[];
+  public search         : string = ''
   
-  
-  @Input()  set options(opts){
+  @Input() set options(opts){
     this._options.next(opts);
     this.mapSelected = opts;
     this.statusItems(opts);
@@ -29,14 +29,16 @@ export class DropdownListComponent implements OnInit {
     this.statusItems(opts);
   }
 
-  @Input() key:string = 'id'; 
-  @Input() label:string = 'name'; 
+  @Input() set searchText(search:string){
+    this.search = search;
+  };
 
+  @Input() key          : string = 'id'; 
+  @Input() label        : string = 'name';   
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   clickItem(item:any){
     let key = item[this.key];

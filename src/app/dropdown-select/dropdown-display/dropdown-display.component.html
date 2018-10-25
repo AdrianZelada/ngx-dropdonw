@@ -1,19 +1,53 @@
-<div *ngIf="items | async as itemsSelected">
-  <div *ngIf="itemsSelected.length > 0 ;else empty">
-    <div *ngIf="itemsSelected.length < 4">
-      <span *ngFor="let item of itemsSelected" (click)="clickItem(item)"> {{item[label]}} </span>
-    </div>
+<div class="container-dropdown">
+  <div class="container-display">
+    <div *ngIf="items | async as itemsSelected">
+      <div *ngIf="itemsSelected.length > 0 ;else empty">
+        <div *ngIf="itemsSelected.length < itemDisplay">
+          <div *ngFor="let item of itemsSelected" class="item-box item-font">  
+            {{item[label]}} 
+            <span (click)="clickItem(item)"> 
+                <svg class="iconp icon-cancel-circle"><use xlink:href="#icon-cancel-circle"></use></svg>
+            </span>
+          </div>
+        </div>
 
-    <div *ngIf="itemsSelected.length > 3">
-      <!-- <span *ngFor="let item of itemsSelected" (click)="clickItem(item)"> {{item[label]}} </span> -->
-      <span>Items {{itemsSelected.length}}</span>
-    </div>
-  </div>  
+        <div *ngIf="itemsSelected.length >= itemDisplay" class="item-box item-font">
+          <!-- <span *ngFor="let item of itemsSelected" (click)="clickItem(item)"> {{item[label]}} </span> -->
+          <span>Items {{itemsSelected.length}}</span>
+        </div>
+      </div>      
+    </div>  
+  </div>
+  <div (click)="toggle()">      
+      <svg class="iconp icon-circle-down" *ngIf="open"><use xlink:href="#icon-circle-down"></use></svg>
+      <svg class="iconp icon-circle-up" *ngIf="!open"><use xlink:href="#icon-circle-up"></use></svg>
+  </div>
 </div>
-
 <ng-template #empty>
   <div>
-    <p>Dropdown select</p>
+    <span class="item-font">{{placeholder}}</span>
   </div>
 </ng-template>
 
+
+
+
+<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+  <symbol id="icon-cancel-circle" viewBox="0 0 32 32">
+  <title>cancel-circle</title>
+  <path d="M16 0c-8.837 0-16 7.163-16 16s7.163 16 16 16 16-7.163 16-16-7.163-16-16-16zM16 29c-7.18 0-13-5.82-13-13s5.82-13 13-13 13 5.82 13 13-5.82 13-13 13z"></path>
+  <path d="M21 8l-5 5-5-5-3 3 5 5-5 5 3 3 5-5 5 5 3-3-5-5 5-5z"></path>
+  </symbol>
+  <symbol id="icon-circle-up" viewBox="0 0 32 32">
+  <title>circle-up</title>
+  <path d="M0 16c0 8.837 7.163 16 16 16s16-7.163 16-16-7.163-16-16-16-16 7.163-16 16zM29 16c0 7.18-5.82 13-13 13s-13-5.82-13-13 5.82-13 13-13 13 5.82 13 13z"></path>
+  <path d="M22.086 20.914l2.829-2.829-8.914-8.914-8.914 8.914 2.828 2.828 6.086-6.086z"></path>
+  </symbol>
+  <symbol id="icon-circle-down" viewBox="0 0 32 32">
+  <title>circle-down</title>
+  <path d="M32 16c0-8.837-7.163-16-16-16s-16 7.163-16 16 7.163 16 16 16 16-7.163 16-16zM3 16c0-7.18 5.82-13 13-13s13 5.82 13 13-5.82 13-13 13-13-5.82-13-13z"></path>
+  <path d="M9.914 11.086l-2.829 2.829 8.914 8.914 8.914-8.914-2.828-2.828-6.086 6.086z"></path>
+  </symbol>
+  </defs>
+</svg>

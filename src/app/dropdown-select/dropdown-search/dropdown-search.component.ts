@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'dropdown-search',
@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class DropdownSearchComponent implements OnInit {
 
-  private _search : BehaviorSubject<any> = new BehaviorSubject({});
+  private _search : Subject<any> = new Subject();
   public search$ : Observable<any> = this._search.asObservable();
   
   public form: FormGroup;

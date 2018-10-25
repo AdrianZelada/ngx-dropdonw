@@ -1,5 +1,5 @@
 <div *ngIf="options$ | async as options">
-  <dropdown-item *ngFor="let item of options" 
+  <dropdown-item *ngFor="let item of options | filter : search" 
   [selected]="itemsSelected[item[key]]" 
   [label]="item[label]"
   (click)="clickItem(item)"

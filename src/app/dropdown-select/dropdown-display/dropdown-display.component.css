@@ -1,0 +1,32 @@
+.iconp {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+  }
+
+  .container-display{
+      width: 225px;
+      height: auto;
+      border : 1px solid rgb(192, 192, 192);
+      padding: 5px;
+      display: flow-root;
+      float: left;
+  }
+
+  .item-box{    
+    border:1px solid rgba(192, 192, 192,0.7);
+    border-radius: 3px;
+    padding: 2px;
+    margin-right: 3px;
+    float: left;
+  }
+
+  .item-font{
+    font-size: 13px;
+  }
+  .container-dropdown{
+      display: inline;
+  }

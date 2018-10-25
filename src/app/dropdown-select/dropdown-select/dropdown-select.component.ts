@@ -2,7 +2,8 @@ import { Component, OnInit, Input, ViewChild, AfterViewInit, OnDestroy } from '@
 import { Observable, Subject, BehaviorSubject, Subscription } from 'rxjs';
 import { DropdownListComponent } from '../dropdown-list/dropdown-list.component';
 import { DropdownDisplayComponent } from '../dropdown-display/dropdown-display.component';
-import {tap} from 'rxjs/operators'
+import {tap, takeUntil} from 'rxjs/operators'
+import { DropdownSearchComponent } from '../dropdown-search/dropdown-search.component';
 
 @Component({
   selector: 'dropdown-select',
@@ -19,13 +20,16 @@ export class DropdownSelectComponent implements OnInit, AfterViewInit, OnDestroy
 
   private _valueChanges : BehaviorSubject<any> = new BehaviorSubject([]);
   public valueChanges$ : Observable<any> = this._valueChanges.asObservable();
-  
+
+  private _unsubscription : Subject<any> = new Subject();
+
   public items :Observable<any>;
   public sizeItems:number=0;
   public sizeSelect:number=0;
   public isAll :boolean = false;
   public values$ :Observable<any> = new Observable();
-  
+  public showList : boolean =false;
+  public searchText : string = '';
 
   @Input() set options(opts:any){
     this._options.next(opts)    
@@ -39,13 +43,13 @@ export class DropdownSelectComponent implements OnInit, AfterViewInit, OnDestroy
 
   @Input() key:string = 'id'; 
   @Input() label:string = 'name'; 
+  @Input() placeholder : string = 'Selection';
+  @Input() itemDisplay : number = 1;
 
   @ViewChild(DropdownListComponent) dropdown :DropdownListComponent;
   @ViewChild(DropdownDisplayComponent) display :DropdownDisplayComponent;
+  @ViewChild(DropdownSearchComponent) search :DropdownSearchComponent;
   
-
-  dropdownUnsub : Array<Subscription>=[];
-
   constructor() { }
 
   ngOnInit() {
@@ -58,15 +62,39 @@ export class DropdownSelectComponent implements OnInit, AfterViewInit, OnDestroy
         this._valueChanges.next(data);
       })
     )    
-    this.dropdownUnsub.push(this.display.click$.subscribe((data:any)=>{        
+    
+    this.display
+      .click$
+      .pipe(
+        takeUntil(this._unsubscription)
+      )
+      .subscribe((data:any)=>{        
       this.dropdown.clickItem(data);
-    }));
+    });
+
+    this.display
+      .open$
+      .pipe(
+        takeUntil(this._unsubscription)
+      )
+      .subscribe((status:boolean)=>{
+      this.showList=status;
+    });
+
+
+    this.search
+      .search$
+      .pipe(
+        takeUntil(this._unsubscription)
+      )
+      .subscribe((text:string)=>{        
+        this.searchText = text;
+      });    
   }
 
   ngOnDestroy(){
-    this.dropdownUnsub.forEach((subs:Subscription)=>{
-      subs.unsubscribe();
-    })
+    this._unsubscription.next();
+    this._unsubscription.complete();
   }
 
   changeSelections(){
@@ -74,7 +102,7 @@ export class DropdownSelectComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   toogle(){
-    
+    this.showList = !this.showList;
   }
 
 

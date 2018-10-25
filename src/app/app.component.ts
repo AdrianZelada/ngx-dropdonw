@@ -12,6 +12,7 @@ export class AppComponent implements OnInit, AfterViewInit{
   title = 'dropdown';
   options: Observable<any>;
   selected: Array<any>=[];
+  items:number =2;
 
   @ViewChild(DropdownSelectComponent) dropdown :DropdownSelectComponent;
 

@@ -7,6 +7,7 @@ import { DropdownActionsComponent } from './dropdown-actions/dropdown-actions.co
 import { DropdownDisplayComponent } from './dropdown-display/dropdown-display.component';
 import { DropdownListComponent } from './dropdown-list/dropdown-list.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FilterPipe } from './dropdown-list/filter-text.pipe';
 
 @NgModule({
   imports: [
@@ -17,6 +18,14 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
   exports:[
     DropdownSelectComponent
   ],
-  declarations: [DropdownSelectComponent, DropdownItemComponent, DropdownSearchComponent, DropdownActionsComponent, DropdownDisplayComponent, DropdownListComponent]
+  declarations: [
+    DropdownSelectComponent, 
+    DropdownItemComponent,
+    DropdownSearchComponent, 
+    DropdownActionsComponent, 
+    DropdownDisplayComponent, 
+    DropdownListComponent,
+    FilterPipe
+  ]
 })
 export class DropdownSelectModule { }

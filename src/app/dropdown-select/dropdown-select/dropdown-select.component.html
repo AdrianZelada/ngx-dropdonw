@@ -1,13 +1,18 @@
-<div (click)="toogle()">
-  <dropdown-display [items]="values$" [label]="label"></dropdown-display> 
-</div>
 <div>
-  <!-- <dropdown-search></dropdown-search>   -->
+  <dropdown-display 
+    [placeholder]="placeholder" 
+    [items]="values$" 
+    [label]="label"
+    [itemDisplay]="itemDisplay"
+    ></dropdown-display>   
+</div>
+<div [hidden]="!showList">
+  <dropdown-search></dropdown-search>  
   <!-- <dropdown-actions></dropdown-actions> -->
   <div>
     <button (click)="changeSelections()">
       {{ sizeSelect== sizeItems ? "Desmarcar Todos" : "Marcar Todos" }}
     </button>
   </div>
-  <dropdown-list [options]="items | async" [selected]="selected"></dropdown-list>
+  <dropdown-list [options]="items | async" [searchText]="searchText" [selected]="selected"></dropdown-list>
 </div>

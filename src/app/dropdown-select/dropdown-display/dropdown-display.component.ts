@@ -8,12 +8,19 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class DropdownDisplayComponent implements OnInit {
 
+  public open : boolean =false;
+  
   private _click : BehaviorSubject<any> = new BehaviorSubject({});
   public click$ : Observable<any> = this._click.asObservable();
+
+  private _open : BehaviorSubject<boolean> = new BehaviorSubject(this.open);
+  public open$ : Observable<boolean> = this._open.asObservable();
     
   @Input() items: Observable<any> = new Observable();
   @Input() label:string='name';
-
+  @Input() placeholder : string;
+  @Input() itemDisplay : number;
+  
   constructor() { }
 
   ngOnInit() {
@@ -22,6 +29,11 @@ export class DropdownDisplayComponent implements OnInit {
 
   clickItem(item:any){
     this._click.next(item);
+  }
+
+  toggle(){    
+    this.open = !this.open;
+    this._open.next(this.open);
   }
 
 }
