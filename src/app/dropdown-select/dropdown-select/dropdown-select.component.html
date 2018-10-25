@@ -4,14 +4,14 @@
     [items]="values$" 
     [label]="label"
     [itemDisplay]="itemDisplay"
+    [placeholderSelected]="placeholderSelected"
     ></dropdown-display>   
 </div>
 <div [hidden]="!showList">
-  <dropdown-search></dropdown-search>  
-  <!-- <dropdown-actions></dropdown-actions> -->
+  <dropdown-search></dropdown-search>    
   <div>
     <button (click)="changeSelections()">
-      {{ sizeSelect== sizeItems ? "Desmarcar Todos" : "Marcar Todos" }}
+      {{ sizeSelect == sizeItems ? "Desmarcar Todos" : "Marcar Todos" }}
     </button>
   </div>
   <dropdown-list [options]="items | async" [searchText]="searchText" [selected]="selected"></dropdown-list>

@@ -20,6 +20,7 @@ export class DropdownDisplayComponent implements OnInit {
   @Input() label:string='name';
   @Input() placeholder : string;
   @Input() itemDisplay : number;
+  @Input() placeholderSelected : string;
   
   constructor() { }
 

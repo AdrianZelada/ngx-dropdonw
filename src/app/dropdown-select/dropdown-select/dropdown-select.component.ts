@@ -45,6 +45,7 @@ export class DropdownSelectComponent implements OnInit, AfterViewInit, OnDestroy
   @Input() label:string = 'name'; 
   @Input() placeholder : string = 'Selection';
   @Input() itemDisplay : number = 1;
+  @Input() placeholderSelected :string = 'Items'
 
   @ViewChild(DropdownListComponent) dropdown :DropdownListComponent;
   @ViewChild(DropdownDisplayComponent) display :DropdownDisplayComponent;
