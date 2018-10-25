@@ -1,0 +1,8 @@
+<div *ngIf="options$ | async as options">
+  <dropdown-item *ngFor="let item of options" 
+  [selected]="itemsSelected[item[key]]" 
+  [label]="item[label]"
+  (click)="clickItem(item)"
+  ></dropdown-item>
+</div>
+

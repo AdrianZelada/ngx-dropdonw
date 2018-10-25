@@ -1,0 +1,19 @@
+<div *ngIf="items | async as itemsSelected">
+  <div *ngIf="itemsSelected.length > 0 ;else empty">
+    <div *ngIf="itemsSelected.length < 4">
+      <span *ngFor="let item of itemsSelected" (click)="clickItem(item)"> {{item[label]}} </span>
+    </div>
+
+    <div *ngIf="itemsSelected.length > 3">
+      <!-- <span *ngFor="let item of itemsSelected" (click)="clickItem(item)"> {{item[label]}} </span> -->
+      <span>Items {{itemsSelected.length}}</span>
+    </div>
+  </div>  
+</div>
+
+<ng-template #empty>
+  <div>
+    <p>Dropdown select</p>
+  </div>
+</ng-template>
+
